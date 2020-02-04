@@ -14,7 +14,7 @@ response_list = []
 
 # Открытие файла
 file = open('response.txt', 'w')
-for cid in range(4100, 4150):                       # 4131, 4132, 4133
+for cid in range(4100, 4155):                       # 4131, 4132, 4133
     time.sleep(0.001)
     payload = "json={\n   \"common\": {\n      \"version\": \"1.0\",\n      \"api_key\": " \
               "\"" + yandex_key.key + "\"\r\n   }," \
