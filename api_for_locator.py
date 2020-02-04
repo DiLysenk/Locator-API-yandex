@@ -1,5 +1,6 @@
 import requests
 import time
+import datetime
 from yandex_key import YKey
 
 # url - адрес запроса
@@ -8,22 +9,25 @@ url = 'http://api.lbs.yandex.net/geolocation'
 # ответ если базовой станции не существует
 
 
-# ключ от yandex локатора
-key = "AAWW1l0BAAAA-ySjGQIAJGp8BARUCie1PUbaznYu58C8xzcAAAAAAAAAAABF0LkL4ONOCjhC_WbHUrN__bCa6w=="
-
 # создаем список для ответок
 response_list = []
+cid_list = []
+# код оператора
+mnc = 2
+# код локации
+lac = 7843
 
 # Открытие файла
 file = open('response.txt', 'w')
-for cid in range(4100, 4150):                       # 4131, 4132, 4133
+file_cid = open('cid' + str(datetime.date.today()) + '.txt', 'w')
+for cid in range(20000, 100000):                       # 4131, 4132, 4133
     time.sleep(0.001)
     payload = "json={\n   \"common\": {\n      \"version\": \"1.0\",\n      \"api_key\": " \
               "\"" + YKey.key + "\"\r\n   }," \
                            "\r\n   \"gsm_cells\": [\r\n       {\r\n          \"countrycode\": 250,\r\n          " \
-                           "\"operatorid\": 99," \
+                           "\"operatorid\": " + str(mnc) + "," \
                            "\r\n          \"cellid\": " + str(
-        cid) + ",\r\n          \"lac\": 14752,\r\n   \"signal_strength\": -80," \
+        cid) + ",\r\n          \"lac\": " + str(lac) + ",\r\n   \"signal_strength\": -80," \
                "\r\n   \"age\": 1000\r\n    }\r\n   ],\r\n   \"wifi_networks\": [\r\n       {\r\n          " \
                "\"mac\": \"2CD02D814C80\",\r\n          \"signal_strength\": -68,\r\n          \"age\": 500," \
                "\r\n       }," \
@@ -49,13 +53,19 @@ for cid in range(4100, 4150):                       # 4131, 4132, 4133
                                '.', '0', ',', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '"', 't', 'y', 'p',
                                'e', '"', ':', '"', 'i', 'p', '"', '\n', ' ', ' ', ' ', ' ', ' ', ' ', '}', '\n', '}']:
         response_list.append(response.text)
-        print(cid)
+        cid_list.append(cid)
+        print(mnc, lac, cid)
+
+
 
 
 response_set = set(response_list)  # преобразование списка response list в множество для создания уникальных
 # значений ответов response
 
+
 file.write(str(response_set)) # запись множества в файл
+file_cid.write(str(cid_list))
+
 
 file.close()
 # response = requests.post('https://httpbin.org/post', data={'key':'value'})
