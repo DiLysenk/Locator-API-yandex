@@ -1,6 +1,6 @@
 import requests
 import time
-from yandex_key import yandex_key
+from yandex_key import YKey
 
 # url - адрес запроса
 url = 'http://api.lbs.yandex.net/geolocation'
@@ -8,16 +8,18 @@ url = 'http://api.lbs.yandex.net/geolocation'
 # ответ если базовой станции не существует
 
 
+# ключ от yandex локатора
+key = "AAWW1l0BAAAA-ySjGQIAJGp8BARUCie1PUbaznYu58C8xzcAAAAAAAAAAABF0LkL4ONOCjhC_WbHUrN__bCa6w=="
 
 # создаем список для ответок
 response_list = []
 
 # Открытие файла
 file = open('response.txt', 'w')
-for cid in range(4100, 4156):                       # 4131, 4132, 4133
+for cid in range(4100, 4150):                       # 4131, 4132, 4133
     time.sleep(0.001)
     payload = "json={\n   \"common\": {\n      \"version\": \"1.0\",\n      \"api_key\": " \
-              "\"" + yandex_key.key + "\"\r\n   }," \
+              "\"" + YKey.key + "\"\r\n   }," \
                            "\r\n   \"gsm_cells\": [\r\n       {\r\n          \"countrycode\": 250,\r\n          " \
                            "\"operatorid\": 99," \
                            "\r\n          \"cellid\": " + str(
