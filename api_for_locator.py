@@ -20,7 +20,7 @@ lac = 7843
 # Открытие файла
 file = open('response.txt', 'w')
 file_cid = open('cid' + str(datetime.date.today()) + '.txt', 'w')
-for cid in range(20000, 100000):                       # 4131, 4132, 4133
+for cid in range(0, 5):                       # 4131, 4132, 4133
     time.sleep(0.001)
     payload = "json={\n   \"common\": {\n      \"version\": \"1.0\",\n      \"api_key\": " \
               "\"" + YKey.key + "\"\r\n   }," \
@@ -65,8 +65,5 @@ response_set = set(response_list)  # преобразование списка r
 
 file.write(str(response_set)) # запись множества в файл
 file_cid.write(str(cid_list))
-
-
 file.close()
-# response = requests.post('https://httpbin.org/post', data={'key':'value'})
-"""" ответ на несуществующую базовую станцию """
+
